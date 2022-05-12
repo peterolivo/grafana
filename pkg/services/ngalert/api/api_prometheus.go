@@ -159,9 +159,6 @@ func (srv PrometheusSrv) RouteGetRuleStatuses(c *models.ReqContext) response.Res
 
 	groupedRules := make(map[ngmodels.AlertRuleGroupKey][]*ngmodels.AlertRule)
 	for _, rule := range alertRuleQuery.Result {
-		if !authorizeDatasourceAccessForRule(rule, hasAccess) {
-			continue
-		}
 		key := rule.GetGroupKey()
 		rulesInGroup := groupedRules[key]
 		rulesInGroup = append(rulesInGroup, rule)
@@ -172,6 +169,9 @@ func (srv PrometheusSrv) RouteGetRuleStatuses(c *models.ReqContext) response.Res
 		folder := namespaceMap[groupKey.NamespaceUID]
 		if folder == nil {
 			srv.log.Warn("query returned rules that belong to folder the user does not have access to. All rules that belong to that namespace will not be added to the response", "folder_uid", groupKey.NamespaceUID)
+			continue
+		}
+		if !authorizeAccessToRuleGroup(rules, hasAccess) {
 			continue
 		}
 		ruleResponse.Data.RuleGroups = append(ruleResponse.Data.RuleGroups, srv.toRuleGroup(groupKey.RuleGroup, folder, rules, labelOptions))
