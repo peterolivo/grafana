@@ -17,6 +17,7 @@ type DashboardService interface {
 	GetDashboardUIDById(ctx context.Context, query *models.GetDashboardRefByIdQuery) error
 	GetPublicDashboardConfig(ctx context.Context, orgId int64, dashboardUid string) (*models.PublicDashboardConfig, error)
 	ImportDashboard(ctx context.Context, dto *SaveDashboardDTO) (*models.Dashboard, error)
+	GetDashboardByPublicUid(ctx context.Context, dashboardPublicUid string) (*models.Dashboard, error)
 	MakeUserAdmin(ctx context.Context, orgID int64, userID, dashboardID int64, setViewAndEditPermissions bool) error
 	SaveDashboard(ctx context.Context, dto *SaveDashboardDTO, allowUiUpdate bool) (*models.Dashboard, error)
 	SavePublicDashboardConfig(ctx context.Context, dto *SavePublicDashboardConfigDTO) (*models.PublicDashboardConfig, error)

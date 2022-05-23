@@ -90,6 +90,29 @@ func (_m *FakeDashboardService) GetDashboard(ctx context.Context, query *models.
 	return r0
 }
 
+// GetDashboardByPublicUid provides a mock function with given fields: ctx, dashboardPublicUid
+func (_m *FakeDashboardService) GetDashboardByPublicUid(ctx context.Context, dashboardPublicUid string) (*models.Dashboard, error) {
+	ret := _m.Called(ctx, dashboardPublicUid)
+
+	var r0 *models.Dashboard
+	if rf, ok := ret.Get(0).(func(context.Context, string) *models.Dashboard); ok {
+		r0 = rf(ctx, dashboardPublicUid)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Dashboard)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, dashboardPublicUid)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetDashboardUIDById provides a mock function with given fields: ctx, query
 func (_m *FakeDashboardService) GetDashboardUIDById(ctx context.Context, query *models.GetDashboardRefByIdQuery) error {
 	ret := _m.Called(ctx, query)
