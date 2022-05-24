@@ -2,6 +2,8 @@
 import React, { memo } from 'react';
 
 import { AnnotationQuery } from '@grafana/data';
+import { EditorRow, EditorField } from '@grafana/experimental';
+import { Input } from '@grafana/ui';
 
 // Types
 import { LokiQuery } from '../types';
@@ -58,64 +60,57 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
         />
       </div>
 
-      <div className="gf-form-group">
-        <h5 className="section-heading">
-          Field formats
-          {/* <span>
-            For title and text fields, use either the name or a pattern. For example, [[ instance ]] is replaced with
-            label value for the label instance.
-          </span> */}
-        </h5>
-        <div className="gf-form-inline">
-          <div className="gf-form">
-            <span className="gf-form-label width-5">Title</span>
-            <input
-              type="text"
-              className="gf-form-input max-width-9"
-              value={annotation.titleFormat}
-              onChange={(e) => {
-                onAnnotationChange({
-                  ...annotation,
-                  titleFormat: e.currentTarget.value,
-                });
-              }}
-              placeholder="alertname"
-            ></input>
-          </div>
-          <div className="gf-form">
-            <span className="gf-form-label width-5">Tags</span>
-            <input
-              type="text"
-              className="gf-form-input max-width-9"
-              value={annotation.tagKeys}
-              onChange={(e) => {
-                onAnnotationChange({
-                  ...annotation,
-                  tagKeys: e.currentTarget.value,
-                });
-              }}
-              placeholder="label1,label2"
-            ></input>
-          </div>
-          <div className="gf-form-inline">
-            <div className="gf-form">
-              <span className="gf-form-label width-5">Text</span>
-              <input
-                type="text"
-                className="gf-form-input max-width-9"
-                value={annotation.textFormat}
-                onChange={(e) => {
-                  onAnnotationChange({
-                    ...annotation,
-                    textFormat: e.currentTarget.value,
-                  });
-                }}
-                placeholder="instance"
-              ></input>
-            </div>
-          </div>
-        </div>
-      </div>
+      <EditorRow>
+        <EditorField
+          label="Title"
+          tooltip={
+            'Use either the name or a pattern. For example, {{instance}} is replaced with label value for the label instance.'
+          }
+        >
+          <Input
+            type="text"
+            placeholder="alertname"
+            value={annotation.titleFormat}
+            onChange={(event) => {
+              onAnnotationChange({
+                ...annotation,
+                titleFormat: event.currentTarget.value,
+              });
+            }}
+          />
+        </EditorField>
+        <EditorField label="Tags">
+          <Input
+            type="text"
+            placeholder="label1,label2"
+            value={annotation.tagKeys}
+            onChange={(event) => {
+              onAnnotationChange({
+                ...annotation,
+                tagKeys: event.currentTarget.value,
+              });
+            }}
+          />
+        </EditorField>
+        <EditorField
+          label="Text"
+          tooltip={
+            'Use either the name or a pattern. For example, {{instance}} is replaced with label value for the label instance.'
+          }
+        >
+          <Input
+            type="text"
+            placeholder="instance"
+            value={annotation.textFormat}
+            onChange={(event) => {
+              onAnnotationChange({
+                ...annotation,
+                textFormat: event.currentTarget.value,
+              });
+            }}
+          />
+        </EditorField>
+      </EditorRow>
     </>
   );
 });
