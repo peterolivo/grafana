@@ -64,6 +64,7 @@ import {
   LokiResultType,
   LokiStreamResponse,
 } from './types';
+import { LokiAnnotationsQueryEditor } from './components/AnnotationsQueryEditor';
 
 export type RangeQueryOptions = DataQueryRequest<LokiQuery> | AnnotationQueryRequest<LokiQuery>;
 export const DEFAULT_MAX_LINES = 1000;
@@ -115,6 +116,9 @@ export class LokiDatasource
     this.languageProvider = new LanguageProvider(this);
     const settingsData = instanceSettings.jsonData || {};
     this.maxLines = parseInt(settingsData.maxLines ?? '0', 10) || DEFAULT_MAX_LINES;
+    this.annotations = {
+      QueryEditor: LokiAnnotationsQueryEditor,
+    };
   }
 
   _request(apiUrl: string, data?: any, options?: Partial<BackendSrvRequest>): Observable<Record<string, any>> {
