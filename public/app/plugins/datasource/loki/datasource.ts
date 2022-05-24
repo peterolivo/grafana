@@ -47,6 +47,7 @@ import { renderLegendFormat } from '../prometheus/legend';
 
 import { addLabelToQuery } from './add_label_to_query';
 import { transformBackendResult } from './backendResultTransformer';
+import { LokiAnnotationsQueryEditor } from './components/AnnotationsQueryEditor';
 import { DEFAULT_RESOLUTION } from './components/LokiOptionFields';
 import LanguageProvider from './language_provider';
 import { LiveStreams, LokiLiveTarget } from './live_streams';
@@ -64,7 +65,6 @@ import {
   LokiResultType,
   LokiStreamResponse,
 } from './types';
-import { LokiAnnotationsQueryEditor } from './components/AnnotationsQueryEditor';
 
 export type RangeQueryOptions = DataQueryRequest<LokiQuery> | AnnotationQueryRequest<LokiQuery>;
 export const DEFAULT_MAX_LINES = 1000;
