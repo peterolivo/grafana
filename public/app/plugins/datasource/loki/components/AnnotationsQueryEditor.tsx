@@ -73,10 +73,10 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
               type="text"
               className="gf-form-input max-width-9"
               value={annotation.titleFormat}
-              onChange={(event) => {
+              onChange={(e) => {
                 onAnnotationChange({
                   ...annotation,
-                  titleFormat: event.currentTarget.value,
+                  titleFormat: e.currentTarget.value,
                 });
               }}
               placeholder="alertname"
@@ -88,10 +88,10 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
               type="text"
               className="gf-form-input max-width-9"
               value={annotation.tagKeys}
-              onChange={(event) => {
+              onChange={(e) => {
                 onAnnotationChange({
                   ...annotation,
-                  tagKeys: event.currentTarget.value,
+                  tagKeys: e.currentTarget.value,
                 });
               }}
               placeholder="label1,label2"
@@ -104,10 +104,10 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
                 type="text"
                 className="gf-form-input max-width-9"
                 value={annotation.textFormat}
-                onChange={(event) => {
+                onChange={(e) => {
                   onAnnotationChange({
                     ...annotation,
-                    textFormat: event.currentTarget.value,
+                    textFormat: e.currentTarget.value,
                   });
                 }}
                 placeholder="instance"

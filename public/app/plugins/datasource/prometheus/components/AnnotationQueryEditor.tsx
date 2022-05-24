@@ -52,10 +52,10 @@ export function AnnotationQueryEditor(props: Props) {
             type="text"
             placeholder="alertname"
             value={annotation.titleFormat}
-            onChange={(e) => {
+            onChange={(event) => {
               onAnnotationChange({
                 ...annotation,
-                titleFormat: e.currentTarget.value,
+                titleFormat: event.currentTarget.value,
               });
             }}
           />
@@ -65,10 +65,10 @@ export function AnnotationQueryEditor(props: Props) {
             type="text"
             placeholder="label1,label2"
             value={annotation.tagKeys}
-            onChange={(e) => {
+            onChange={(event) => {
               onAnnotationChange({
                 ...annotation,
-                tagKeys: e.currentTarget.value,
+                tagKeys: event.currentTarget.value,
               });
             }}
           />
@@ -83,10 +83,10 @@ export function AnnotationQueryEditor(props: Props) {
             type="text"
             placeholder="instance"
             value={annotation.textFormat}
-            onChange={(e) => {
+            onChange={(event) => {
               onAnnotationChange({
                 ...annotation,
-                textFormat: e.currentTarget.value,
+                textFormat: event.currentTarget.value,
               });
             }}
           />
