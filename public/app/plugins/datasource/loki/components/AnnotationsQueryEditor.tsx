@@ -4,20 +4,11 @@ import React, { memo } from 'react';
 import { AnnotationQuery } from '@grafana/data';
 
 // Types
-import { LokiDatasource } from '../datasource';
 import { LokiQuery } from '../types';
 
 import { LokiOptionFields } from './LokiOptionFields';
 import { LokiQueryField } from './LokiQueryField';
 import { LokiQueryEditorProps } from './types';
-
-// interface Props {
-//   expr: string;
-//   maxLines?: number;
-//   instant?: boolean;
-//   datasource: LokiDatasource;
-//   onChange: (query: LokiQuery) => void;
-// }
 
 type Props = LokiQueryEditorProps & {
   annotation?: AnnotationQuery<LokiQuery>;
@@ -25,36 +16,31 @@ type Props = LokiQueryEditorProps & {
 };
 
 export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEditor(props: Props) {
-  const expr: string = props.annotation?.expr ?? '';
-  const maxLines: number = props.annotation?.maxLines ?? 1;
-  const datasource = props.datasource;
-  const instant = false;
-  const titleFormat: string = props.annotation?.titleFormat ?? '';
-  const textFormat: string = props.annotation?.textFormat ?? '';
-  const tagKeys: string = props.annotation?.tagKeys ?? '';
-
   const annotation = props.annotation!;
   const onAnnotationChange = props.onAnnotationChange!;
 
-  console.log(props);
   const onChangeQuery = (query: LokiQuery) => {
-    // const expr = query.expr ?? '';
-    // const maxLines = query.maxLines ?? 1;
-    // const instant = query.instant ?? false;
-    // const onChange = props.onAnnotationChange!;
+    onAnnotationChange({
+      ...annotation,
+      expr: query.expr,
+      maxLines: query.maxLines,
+      instant: query.instant,
+      queryType: query.queryType,
+    });
   };
 
   const queryWithRefId: LokiQuery = {
     refId: '',
-    expr,
-    maxLines,
-    instant,
+    expr: annotation.expr,
+    maxLines: annotation.maxLines,
+    instant: annotation.instant,
+    queryType: annotation.queryType,
   };
   return (
     <>
       <div className="gf-form-group">
         <LokiQueryField
-          datasource={datasource}
+          datasource={props.datasource}
           query={queryWithRefId}
           onChange={onChangeQuery}
           onRunQuery={() => {}}
@@ -86,7 +72,7 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
             <input
               type="text"
               className="gf-form-input max-width-9"
-              value={titleFormat}
+              value={annotation.titleFormat}
               onChange={(event) => {
                 onAnnotationChange({
                   ...annotation,
@@ -101,7 +87,7 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
             <input
               type="text"
               className="gf-form-input max-width-9"
-              value={tagKeys}
+              value={annotation.tagKeys}
               onChange={(event) => {
                 onAnnotationChange({
                   ...annotation,
@@ -117,7 +103,7 @@ export const LokiAnnotationsQueryEditor = memo(function LokiAnnotationQueryEdito
               <input
                 type="text"
                 className="gf-form-input max-width-9"
-                value={textFormat}
+                value={annotation.textFormat}
                 onChange={(event) => {
                   onAnnotationChange({
                     ...annotation,
